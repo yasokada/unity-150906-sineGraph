@@ -117,5 +117,13 @@ public class graphDrawControl : MonoBehaviour {
 		List<Vector2> my2DPointCos = new List<Vector2> ();
 		Test_drawBox (my2DPointCos, cosPanel);
 		Test_cosineGraph (my2DPointCos, cosPanel);
+
+		// 2nd draw
+		my2DPointCos.Clear ();
+		Test_drawBox (my2DPointCos, cosPanel);
+		Test_cosineGraph (my2DPointCos, cosPanel);
+
+		// TODO: remove lineGroup under Panel
+
 	}
 }
