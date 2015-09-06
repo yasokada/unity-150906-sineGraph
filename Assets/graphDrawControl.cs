@@ -46,8 +46,9 @@ public class graphDrawControl : MonoBehaviour {
 		lineGroup.transform.parent = panel.transform; // to belong to panel
 	}
 
-	void drawBottomLeftToTopRight(){
-		Vector2 pointPos;
+	void addPointNormalized(Vector2 point)
+	{
+		// point: normalized point data [-1.0, 1.0] for each of x, y
 
 		RectTransform panelRect = panel.GetComponent<RectTransform> ();
 		float width = panelRect.rect.width;
@@ -55,18 +56,19 @@ public class graphDrawControl : MonoBehaviour {
 		
 		RectTransform canvasRect = myCanvas.GetComponent<RectTransform> ();
 
+		Vector2 pointPos;
+		
 		// Bottom Left
 		pointPos = panel.transform.position;
-		pointPos.x -= width * 0.5f * canvasRect.localScale.x;
-		pointPos.y -= height * 0.5f * canvasRect.localScale.y;
+		pointPos.x += point.x * width * 0.5f * canvasRect.localScale.x;
+		pointPos.y += point.y * height * 0.5f * canvasRect.localScale.y;
 		my2DPoint.Add (pointPos);
+	}
+	
+	void drawBottomLeftToTopRight(){
+		addPointNormalized (new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (new Vector2 (1.0f, 1.0f));
 
-		// Top Right
-		pointPos = panel.transform.position;
-		pointPos.x += width * 0.5f * canvasRect.localScale.x;
-		pointPos.y += height * 0.5f * canvasRect.localScale.y;
-		my2DPoint.Add (pointPos);
-		
 		drawGraph ();
 	}
 
