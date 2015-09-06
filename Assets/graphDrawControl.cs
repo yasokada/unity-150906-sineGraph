@@ -127,6 +127,7 @@ public class graphDrawControl : MonoBehaviour {
 		Test_cosineGraph (my2DPointCos, cosPanel);
 
 		// 2nd draw
+		my2DPointCos.Clear ();
 		clearGraph (cosPanel);
 		Test_drawBox (my2DPointCos, cosPanel);
 		Test_cosineGraph (my2DPointCos, cosPanel);
