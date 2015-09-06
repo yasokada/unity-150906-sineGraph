@@ -65,7 +65,8 @@ public class graphDrawControl : MonoBehaviour {
 		my2DPoint.Add (pointPos);
 	}
 	
-	void Test_drawBox(){
+	void Test_drawBox()
+	{
 		addPointNormalized (myPanel, new Vector2 (-1.0f, -1.0f));
 		addPointNormalized (myPanel, new Vector2 (-1.0f, 1.0f));
 		addPointNormalized (myPanel, new Vector2 (1.0f, 1.0f));
@@ -75,9 +76,25 @@ public class graphDrawControl : MonoBehaviour {
 		drawGraph (myPanel);
 	}
 
+	void Test_sineGraph()
+	{
+		float arg = 0.0f; // deg
+		float step = 0.5f; // deg
+		float rad, xnorm;
+
+		while (arg < 360.0f) {
+			rad = arg * Mathf.Deg2Rad;
+			xnorm = arg / 180.0f - 1.0f;
+			addPointNormalized(myPanel, new Vector2(xnorm, Mathf.Sin(rad)));
+			arg += step;
+		}
+		drawGraph (myPanel);
+	}
+
 	void Start () {
 		my2DPoint = new List<Vector2> ();
 
 		Test_drawBox ();
+		Test_sineGraph ();
 	}
 }
