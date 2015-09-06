@@ -12,7 +12,7 @@ using System.Collections.Generic; // for List<>
 public class graphDrawControl : MonoBehaviour {
 
 	private GameObject lineGroup; // for grouping
-	List<Vector2> my2DPoint;
+//	List<Vector2> my2DPoint;
 	public GameObject sinPanel;
 	public GameObject cosPanel;
 	public Canvas myCanvas; // to obtain canvas.scale
@@ -36,20 +36,21 @@ public class graphDrawControl : MonoBehaviour {
 		newLine.transform.parent = lineGroup.transform; // for grouping
 	}
 
-	void drawGraph(GameObject panel) {
-		if (lineGroup != null) {
-			Destroy (lineGroup.gameObject);
-		}
+	void drawGraph(List<Vector2> my2DVec, GameObject panel) {
+		// TODO: prevent mutiple draw
+//		if (lineGroup != null) {
+//			Destroy (lineGroup.gameObject);
+//		}
 		lineGroup = new GameObject ("LineGroup");
 
-		for (int idx=0; idx < my2DPoint.Count - 1; idx++) {
-			DrawLine (my2DPoint, /* startPos=*/idx);
+		for (int idx=0; idx < my2DVec.Count - 1; idx++) {
+			DrawLine (my2DVec, /* startPos=*/idx);
 		}
 
 		lineGroup.transform.parent = panel.transform; // to belong to panel
 	}
 
-	void addPointNormalized(GameObject panel, Vector2 point)
+	void addPointNormalized(List<Vector2> my2DVec, GameObject panel, Vector2 point)
 	{
 		// point: normalized point data [-1.0, 1.0] for each of x, y
 
@@ -65,21 +66,21 @@ public class graphDrawControl : MonoBehaviour {
 		pointPos = panel.transform.position;
 		pointPos.x += point.x * width * 0.5f * canvasRect.localScale.x;
 		pointPos.y += point.y * height * 0.5f * canvasRect.localScale.y;
-		my2DPoint.Add (pointPos);
+		my2DVec.Add (pointPos);
 	}
 	
-	void Test_drawBox(GameObject panel)
+	void Test_drawBox(List<Vector2> my2DVec, GameObject panel)
 	{
-		addPointNormalized (panel, new Vector2 (-1.0f, -1.0f));
-		addPointNormalized (panel, new Vector2 (-1.0f, 1.0f));
-		addPointNormalized (panel, new Vector2 (1.0f, 1.0f));
-		addPointNormalized (panel, new Vector2 (1.0f, -1.0f));
-		addPointNormalized (panel, new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (my2DVec, panel, new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (my2DVec, panel, new Vector2 (-1.0f, 1.0f));
+		addPointNormalized (my2DVec, panel, new Vector2 (1.0f, 1.0f));
+		addPointNormalized (my2DVec, panel, new Vector2 (1.0f, -1.0f));
+		addPointNormalized (my2DVec, panel, new Vector2 (-1.0f, -1.0f));
 
-		drawGraph (sinPanel);
+		drawGraph (my2DVec, panel);
 	}
 
-	void Test_sineGraph(GameObject panel)
+	void Test_sineGraph(List<Vector2> my2DVec, GameObject panel)
 	{
 		float arg = 0.0f; // deg
 		float step = 0.5f; // deg
@@ -88,12 +89,12 @@ public class graphDrawControl : MonoBehaviour {
 		while (arg < 360.0f) {
 			rad = arg * Mathf.Deg2Rad;
 			xnorm = arg / 180.0f - 1.0f;
-			addPointNormalized(panel, new Vector2(xnorm, Mathf.Sin(rad)));
+			addPointNormalized(my2DVec, panel, new Vector2(xnorm, Mathf.Sin(rad)));
 			arg += step;
 		}
-		drawGraph (panel);
+		drawGraph (my2DVec, panel);
 	}
-	void Test_cosineGraph(GameObject panel)
+	void Test_cosineGraph(List<Vector2> my2DVec, GameObject panel)
 	{
 		float arg = 0.0f; // deg
 		float step = 0.5f; // deg
@@ -102,19 +103,19 @@ public class graphDrawControl : MonoBehaviour {
 		while (arg < 360.0f) {
 			rad = arg * Mathf.Deg2Rad;
 			xnorm = arg / 180.0f - 1.0f;
-			addPointNormalized(panel, new Vector2(xnorm, Mathf.Cos(rad)));
+			addPointNormalized(my2DVec, panel, new Vector2(xnorm, Mathf.Cos(rad)));
 			arg += step;
 		}
-		drawGraph (panel);
+		drawGraph (my2DVec, panel);
 	}
 
 	void Start () {
-		my2DPoint = new List<Vector2> ();
+		List<Vector2> my2DPointSin = new List<Vector2> ();
+		Test_drawBox (my2DPointSin, sinPanel);
+		Test_sineGraph (my2DPointSin, sinPanel);
 
-		Test_drawBox (sinPanel);
-		Test_sineGraph (sinPanel);
-
-		Test_drawBox (cosPanel);
-		Test_cosineGraph (cosPanel);
+		List<Vector2> my2DPointCos = new List<Vector2> ();
+		Test_drawBox (my2DPointCos, cosPanel);
+		Test_cosineGraph (my2DPointCos, cosPanel);
 	}
 }
