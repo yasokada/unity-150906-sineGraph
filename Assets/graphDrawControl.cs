@@ -88,29 +88,29 @@ public class graphDrawControl : MonoBehaviour {
 
 	void Test_sineGraph(List<Vector2> my2DVec, GameObject panel)
 	{
-		float arg = 0.0f; // deg
+		float ang_deg = 0.0f; // deg
 		float step = 0.5f; // deg
 		float rad, xnorm;
 
-		while (arg < 360.0f) {
-			rad = arg * Mathf.Deg2Rad;
-			xnorm = arg / 180.0f - 1.0f;
+		while (ang_deg < 360.0f) {
+			rad = ang_deg * Mathf.Deg2Rad;
+			xnorm = ang_deg / 180.0f - 1.0f;
 			addPointNormalized(my2DVec, panel, new Vector2(xnorm, Mathf.Sin(rad)));
-			arg += step;
+			ang_deg += step;
 		}
 		drawGraph (my2DVec, panel);
 	}
 	void Test_cosineGraph(List<Vector2> my2DVec, GameObject panel)
 	{
-		float arg = 0.0f; // deg
+		float ang_deg = 0.0f; // deg
 		float step = 0.5f; // deg
 		float rad, xnorm;
 		
-		while (arg < 360.0f) {
-			rad = arg * Mathf.Deg2Rad;
-			xnorm = arg / 180.0f - 1.0f;
+		while (ang_deg < 360.0f) {
+			rad = ang_deg * Mathf.Deg2Rad;
+			xnorm = ang_deg / 180.0f - 1.0f;
 			addPointNormalized(my2DVec, panel, new Vector2(xnorm, Mathf.Cos(rad)));
-			arg += step;
+			ang_deg += step;
 		}
 		drawGraph (my2DVec, panel);
 	}
