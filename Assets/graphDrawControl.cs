@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic; // for List<>
 
 /*
+ * v0.2 2015/09/06
+ *   - add sine and cosine graph
  * v0.1 2015/09/06
  *   - draw line over Panel
  */ 
@@ -11,7 +13,8 @@ public class graphDrawControl : MonoBehaviour {
 
 	private GameObject lineGroup; // for grouping
 	List<Vector2> my2DPoint;
-	public GameObject myPanel;
+	public GameObject sinPanel;
+	public GameObject cosPanel;
 	public Canvas myCanvas; // to obtain canvas.scale
 	
 	void DrawLine(List<Vector2> my2DVec, int startPos) {
@@ -65,18 +68,18 @@ public class graphDrawControl : MonoBehaviour {
 		my2DPoint.Add (pointPos);
 	}
 	
-	void Test_drawBox()
+	void Test_drawBox(GameObject panel)
 	{
-		addPointNormalized (myPanel, new Vector2 (-1.0f, -1.0f));
-		addPointNormalized (myPanel, new Vector2 (-1.0f, 1.0f));
-		addPointNormalized (myPanel, new Vector2 (1.0f, 1.0f));
-		addPointNormalized (myPanel, new Vector2 (1.0f, -1.0f));
-		addPointNormalized (myPanel, new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (panel, new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (panel, new Vector2 (-1.0f, 1.0f));
+		addPointNormalized (panel, new Vector2 (1.0f, 1.0f));
+		addPointNormalized (panel, new Vector2 (1.0f, -1.0f));
+		addPointNormalized (panel, new Vector2 (-1.0f, -1.0f));
 
-		drawGraph (myPanel);
+		drawGraph (sinPanel);
 	}
 
-	void Test_sineGraph()
+	void Test_sineGraph(GameObject panel)
 	{
 		float arg = 0.0f; // deg
 		float step = 0.5f; // deg
@@ -85,16 +88,33 @@ public class graphDrawControl : MonoBehaviour {
 		while (arg < 360.0f) {
 			rad = arg * Mathf.Deg2Rad;
 			xnorm = arg / 180.0f - 1.0f;
-			addPointNormalized(myPanel, new Vector2(xnorm, Mathf.Sin(rad)));
+			addPointNormalized(panel, new Vector2(xnorm, Mathf.Sin(rad)));
 			arg += step;
 		}
-		drawGraph (myPanel);
+		drawGraph (panel);
+	}
+	void Test_cosineGraph(GameObject panel)
+	{
+		float arg = 0.0f; // deg
+		float step = 0.5f; // deg
+		float rad, xnorm;
+		
+		while (arg < 360.0f) {
+			rad = arg * Mathf.Deg2Rad;
+			xnorm = arg / 180.0f - 1.0f;
+			addPointNormalized(panel, new Vector2(xnorm, Mathf.Cos(rad)));
+			arg += step;
+		}
+		drawGraph (panel);
 	}
 
 	void Start () {
 		my2DPoint = new List<Vector2> ();
 
-		Test_drawBox ();
-		Test_sineGraph ();
+		Test_drawBox (sinPanel);
+		Test_sineGraph (sinPanel);
+
+		Test_drawBox (cosPanel);
+		Test_cosineGraph (cosPanel);
 	}
 }
