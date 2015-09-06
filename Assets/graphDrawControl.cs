@@ -65,9 +65,12 @@ public class graphDrawControl : MonoBehaviour {
 		my2DPoint.Add (pointPos);
 	}
 	
-	void drawBottomLeftToTopRight(){
+	void Test_drawBox(){
 		addPointNormalized (new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (new Vector2 (-1.0f, 1.0f));
 		addPointNormalized (new Vector2 (1.0f, 1.0f));
+		addPointNormalized (new Vector2 (1.0f, -1.0f));
+		addPointNormalized (new Vector2 (-1.0f, -1.0f));
 
 		drawGraph ();
 	}
@@ -75,6 +78,6 @@ public class graphDrawControl : MonoBehaviour {
 	void Start () {
 		my2DPoint = new List<Vector2> ();
 
-		drawBottomLeftToTopRight ();
+		Test_drawBox ();
 	}
 }
