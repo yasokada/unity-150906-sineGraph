@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic; // for List<>
 
 /*
+ * v0.3 2015/09/06
+ *   - moving cosine graph
  * v0.2 2015/09/06
  *   - add sine and cosine graph
  * v0.1 2015/09/06
@@ -15,6 +17,9 @@ public class graphDrawControl : MonoBehaviour {
 	public GameObject sinPanel;
 	public GameObject cosPanel;
 	public Canvas myCanvas; // to obtain canvas.scale
+
+	private float accTime = 0.0f;
+	private float currentArg = 0.0f;
 	
 	void DrawLine(List<Vector2> my2DVec, int startPos) {
 		List<Vector3> myPoint = new List<Vector3>();
@@ -94,14 +99,16 @@ public class graphDrawControl : MonoBehaviour {
 		}
 		drawGraph (my2DVec, panel);
 	}
-	void Test_cosineGraph(List<Vector2> my2DVec, GameObject panel)
+	void Test_cosineGraph(List<Vector2> my2DVec, GameObject panel, float arg_deg)
 	{
+		// arg_deg: argument in degree
+
 		float ang_deg = 0.0f; // deg
 		float step = 0.5f; // deg
 		float rad, xnorm;
 		
 		while (ang_deg < 360.0f) {
-			rad = ang_deg * Mathf.Deg2Rad;
+			rad = (ang_deg + arg_deg) * Mathf.Deg2Rad;
 			xnorm = ang_deg / 180.0f - 1.0f;
 			addPointNormalized(my2DVec, panel, new Vector2(xnorm, Mathf.Cos(rad)));
 			ang_deg += step;
@@ -114,16 +121,19 @@ public class graphDrawControl : MonoBehaviour {
 		clearGraph (sinPanel);
 		Test_drawBox (my2DPointSin, sinPanel);
 		Test_sineGraph (my2DPointSin, sinPanel);
+	}
+
+	void Update() {
+		accTime += Time.deltaTime;
+		if (accTime < 0.3f) {
+			return;
+		}
+		accTime = 0.0f;
 
 		List<Vector2> my2DPointCos = new List<Vector2> ();
 		clearGraph (cosPanel);
 		Test_drawBox (my2DPointCos, cosPanel);
-		Test_cosineGraph (my2DPointCos, cosPanel);
-
-		// 2nd draw
-		my2DPointCos.Clear ();
-		clearGraph (cosPanel);
-		Test_drawBox (my2DPointCos, cosPanel);
-		Test_cosineGraph (my2DPointCos, cosPanel);
+		Test_cosineGraph (my2DPointCos, cosPanel, /* arg_deg=*/ currentArg);
+		currentArg += 3.0f;
 	}
 }
