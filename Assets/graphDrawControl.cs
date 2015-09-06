@@ -50,6 +50,12 @@ public class graphDrawControl : MonoBehaviour {
 		lineGroup.transform.parent = panel.transform; // to belong to panel
 	}
 
+	void clearGraph(GameObject panel) {
+		foreach (GameObject line in panel.transform) {
+			Destroy(line);
+		}
+	}
+	
 	void addPointNormalized(List<Vector2> my2DVec, GameObject panel, Vector2 point)
 	{
 		// point: normalized point data [-1.0, 1.0] for each of x, y
@@ -111,19 +117,18 @@ public class graphDrawControl : MonoBehaviour {
 
 	void Start () {
 		List<Vector2> my2DPointSin = new List<Vector2> ();
+		clearGraph (sinPanel);
 		Test_drawBox (my2DPointSin, sinPanel);
 		Test_sineGraph (my2DPointSin, sinPanel);
 
 		List<Vector2> my2DPointCos = new List<Vector2> ();
+		clearGraph (cosPanel);
 		Test_drawBox (my2DPointCos, cosPanel);
 		Test_cosineGraph (my2DPointCos, cosPanel);
 
 		// 2nd draw
-		my2DPointCos.Clear ();
+		clearGraph (cosPanel);
 		Test_drawBox (my2DPointCos, cosPanel);
 		Test_cosineGraph (my2DPointCos, cosPanel);
-
-		// TODO: remove lineGroup under Panel
-
 	}
 }
