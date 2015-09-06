@@ -119,7 +119,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 139, y: -85.75}
+  m_AnchoredPosition: {x: 136, y: -70.0999985}
   m_SizeDelta: {x: 146, y: 92}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &139620523
@@ -512,8 +512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a052466ef79464b9d81580346d6813a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sinPanel: {fileID: 0}
-  cosPanel: {fileID: 0}
+  sinPanel: {fileID: 139620521}
+  cosPanel: {fileID: 1319001907}
   myCanvas: {fileID: 1057127238}
 --- !u!4 &2138287227
 Transform:
