@@ -12,7 +12,6 @@ using System.Collections.Generic; // for List<>
 public class graphDrawControl : MonoBehaviour {
 
 	private GameObject lineGroup; // for grouping
-//	List<Vector2> my2DPoint;
 	public GameObject sinPanel;
 	public GameObject cosPanel;
 	public Canvas myCanvas; // to obtain canvas.scale
@@ -25,7 +24,6 @@ public class graphDrawControl : MonoBehaviour {
 		
 		GameObject newLine = new GameObject ("Line" + startPos.ToString() );
 		LineRenderer lRend = newLine.AddComponent<LineRenderer> ();
-//		lRend.useWorldSpace = true; // test
 		lRend.SetVertexCount(2);
 		lRend.SetWidth (0.05f, 0.05f);
 		Vector3 startVec = myPoint[0];
@@ -37,10 +35,6 @@ public class graphDrawControl : MonoBehaviour {
 	}
 
 	void drawGraph(List<Vector2> my2DVec, GameObject panel) {
-		// TODO: prevent mutiple draw
-//		if (lineGroup != null) {
-//			Destroy (lineGroup.gameObject);
-//		}
 		lineGroup = new GameObject ("LineGroup");
 
 		for (int idx=0; idx < my2DVec.Count - 1; idx++) {
