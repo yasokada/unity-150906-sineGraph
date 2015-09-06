@@ -11,7 +11,7 @@ public class graphDrawControl : MonoBehaviour {
 
 	private GameObject lineGroup; // for grouping
 	List<Vector2> my2DPoint;
-	public GameObject panel;
+	public GameObject myPanel;
 	public Canvas myCanvas; // to obtain canvas.scale
 	
 	void DrawLine(List<Vector2> my2DVec, int startPos) {
@@ -33,7 +33,7 @@ public class graphDrawControl : MonoBehaviour {
 		newLine.transform.parent = lineGroup.transform; // for grouping
 	}
 
-	void drawGraph() {
+	void drawGraph(GameObject panel) {
 		if (lineGroup != null) {
 			Destroy (lineGroup.gameObject);
 		}
@@ -46,7 +46,7 @@ public class graphDrawControl : MonoBehaviour {
 		lineGroup.transform.parent = panel.transform; // to belong to panel
 	}
 
-	void addPointNormalized(Vector2 point)
+	void addPointNormalized(GameObject panel, Vector2 point)
 	{
 		// point: normalized point data [-1.0, 1.0] for each of x, y
 
@@ -66,13 +66,13 @@ public class graphDrawControl : MonoBehaviour {
 	}
 	
 	void Test_drawBox(){
-		addPointNormalized (new Vector2 (-1.0f, -1.0f));
-		addPointNormalized (new Vector2 (-1.0f, 1.0f));
-		addPointNormalized (new Vector2 (1.0f, 1.0f));
-		addPointNormalized (new Vector2 (1.0f, -1.0f));
-		addPointNormalized (new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (myPanel, new Vector2 (-1.0f, -1.0f));
+		addPointNormalized (myPanel, new Vector2 (-1.0f, 1.0f));
+		addPointNormalized (myPanel, new Vector2 (1.0f, 1.0f));
+		addPointNormalized (myPanel, new Vector2 (1.0f, -1.0f));
+		addPointNormalized (myPanel, new Vector2 (-1.0f, -1.0f));
 
-		drawGraph ();
+		drawGraph (myPanel);
 	}
 
 	void Start () {
