@@ -51,8 +51,8 @@ public class graphDrawControl : MonoBehaviour {
 	}
 
 	void clearGraph(GameObject panel) {
-		foreach (GameObject line in panel.transform) {
-			Destroy(line);
+		foreach (Transform line in panel.transform) {
+			Destroy(line.gameObject);
 		}
 	}
 	
