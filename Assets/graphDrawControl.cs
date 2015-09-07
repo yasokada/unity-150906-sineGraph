@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic; // for List<>
 
 /*
+ * v0.4 2015/09/07
+ *   - fix: was destroying child[] of Panel other than "LineGroup" at clearGraph()
  * v0.3 2015/09/06
  *   - moving cosine graph
  * v0.2 2015/09/06
@@ -51,7 +53,9 @@ public class graphDrawControl : MonoBehaviour {
 
 	void clearGraph(GameObject panel) {
 		foreach (Transform line in panel.transform) {
-			Destroy(line.gameObject);
+			if (line.gameObject.name.Contains("LineGroup")) {
+				Destroy(line.gameObject);
+			}
 		}
 	}
 	
